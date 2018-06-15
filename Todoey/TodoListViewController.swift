@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["task1","task2","task3"]
+    var itemArray = ["task1","task2","task3"]
     
     
     
@@ -31,6 +31,29 @@ class TodoListViewController: UITableViewController {
         cell.textLabel?.text = itemArray[indexPath.row]
         
         return cell
+    }
+    
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        var newTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Todo Items", message: "", preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "Create New Stuff"
+            newTextField = textField
+        }
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            print("add item success");
+            
+            self.itemArray.append(newTextField.text!)
+            self.tableView.reloadData()
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
     }
     
     //Tableview Delegate Method
